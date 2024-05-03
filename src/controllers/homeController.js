@@ -1,24 +1,27 @@
-import express from 'express';
-import homeController from '../controllers/homeController.js';
-
-const router = express.Router();
-
 // ---------------------------------------------- //
-// GET
+// Render Home
 // ---------------------------------------------- //
 
-router.get('/', homeController.renderHome);
+const renderHome = (req, res) => {
+    res.render("home.html");
+};
 
 
 // ---------------------------------------------- //
-// POST
+// Receive Post
 // ---------------------------------------------- //
 
-router.post('/', homeController.receivePost);
+const receivePost = (req,res) => {
+    res.setHeader('Content-type','text/plain');
+    res.status(200).send('Received a POST through the new method!');
+};
 
 
 // ---------------------------------------------- //
 // exports
 // ---------------------------------------------- //
 
-export default router;
+export default {
+    renderHome,
+    receivePost,
+};

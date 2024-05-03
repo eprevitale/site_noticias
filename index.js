@@ -1,8 +1,16 @@
-//import { fileURLToPath } from 'url';
-const express = require('express');
-var bodyParser = require('body-parser');
-const path = require('path');
+import express from 'express';
+import ejs from 'ejs';
+import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const port = 9393;
+
 
 //------------------------------------------------------------------//
 // Libs config
@@ -12,31 +20,31 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.engine('html', require('ejs').renderFile);
+app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 app.use('/src/public', express.static(path.join(__dirname, 'src/public')));
 app.set('views', path.join(__dirname, '/src/views'));
-//const __filename = fileURLToPath(import.meta.url);
+
 
 
 //------------------------------------------------------------------//
 // Importing routes
 //------------------------------------------------------------------//
 
-const home = require('./src/routes/homeRoute');
+import homeRoute from './src/routes/homeRoute.js';
 
 
 //------------------------------------------------------------------//
 // Routes
 //------------------------------------------------------------------//
 
-app.use('/', home);
+app.use('/', homeRoute);
 
 
 //------------------------------------------------------------------//
 // Server start
 //------------------------------------------------------------------//
 
-app.listen(8000, ()=>{
-    console.log('Server running...')
+app.listen(port, ()=>{
+    console.log(`Server running at http://localhost:${port}`)
 })
