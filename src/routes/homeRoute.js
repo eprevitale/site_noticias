@@ -3,6 +3,7 @@ import homeController from '../controllers/homeController.js';
 
 const router = express.Router();
 
+
 // ---------------------------------------------- //
 // GET
 // ---------------------------------------------- //
